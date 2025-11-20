@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MyShop | Product Catalogue</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <div class="catalogue-card">
+      <img src="catalogue.jpg" alt="Product Catalogue" class="catalogue-image" />
+      <div class="catalogue-content">
+        <h2>PRODUCT</h2>
+        <h3>CATALOGUE DESIGN</h3>
+        <p>Explore our latest range of products and designs to elevate your space.</p>
+      </div>
+    </div>
+
+    <div class="button-section">
+      <button id="shopNowBtn">Shop Now</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="authModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Welcome to MyShop</h3>
+      <p>Choose how you’d like to continue:</p>
+      <button onclick="window.location.href='login.html'">Login</button>
+      <button onclick="window.location.href='register.html'">Register</button>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById("authModal");
+    const btn = document.getElementById("shopNowBtn");
+    const span = document.getElementsByClassName("close")[0];
+
+    btn.onclick = function() {
+      modal.style.display = "flex";
+    }
+
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
+
+
+
+

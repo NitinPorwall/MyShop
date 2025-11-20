@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customer | MyShop</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #eee;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .product-card {
+      border: 1px solid #ccc;
+      padding: 10px;
+      border-radius: 8px;
+      margin: 10px;
+      width: 220px;
+      text-align: center;
+      display: inline-block;
+      vertical-align: top;
+    }
+    #allProducts, #cartItems {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+    button {
+      cursor: pointer;
+      padding: 5px 10px;
+      border-radius: 6px;
+      border: none;
+      background-color: #007bff;
+      color: white;
+    }
+    hr {
+      margin: 25px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="navbar">
+    <h2>🛍️ MyShop</h2>
+    <button id="logoutBtn">Logout</button>
+  </div>
+
+  <div class="dashboard">
+    <h3>Welcome, <span id="customerName"></span>!</h3>
+
+    <h4>Available Products</h4>
+    <div id="allProducts"></div>
+
+    <hr>
+
+    <h4>Your Cart 🛒</h4>
+    <div id="cartItems"></div>
+    <p id="cartTotal">Total: ₹0</p>
+    <button id="checkoutBtn">Checkout</button>
+    <p id="orderMsg"></p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
+

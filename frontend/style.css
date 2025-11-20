@@ -1,0 +1,347 @@
+/* =======================
+   GLOBAL STYLES
+======================= */
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f3f6fb;
+  margin: 0;
+  padding: 0;
+}
+
+/* =======================
+   HOMEPAGE
+======================= */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  text-align: center;
+  background: #f7f9fc;
+}
+
+.catalogue-card {
+  background: #fff;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-width: 420px;
+  transition: transform 0.3s ease;
+}
+
+.catalogue-card:hover {
+  transform: translateY(-5px);
+}
+
+.catalogue-image {
+  width: 100%;
+  height: auto;
+  border-bottom: 3px solid #004aad;
+}
+
+.catalogue-content {
+  padding: 20px;
+}
+
+.catalogue-content h2 {
+  margin: 5px 0;
+  color: #004aad;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.catalogue-content h3 {
+  margin: 5px 0;
+  color: #333;
+  font-size: 1.4em;
+}
+
+.catalogue-content p {
+  color: #666;
+  font-size: 0.95em;
+}
+
+.button-section {
+  margin-top: 20px;
+}
+
+.button-section button {
+  background: #004aad;
+  color: #fff;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1.1em;
+  transition: all 0.3s ease;
+}
+
+.button-section button:hover {
+  background: #00337a;
+  transform: scale(1.05);
+}
+
+/* =======================
+   MODAL (for Shop Now)
+======================= */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 10;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 12px;
+  text-align: center;
+  width: 320px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  animation: popUp 0.3s ease;
+}
+
+.modal-content h3 {
+  margin-top: 0;
+  color: #004aad;
+}
+
+.modal-content button {
+  background: #004aad;
+  color: white;
+  border: none;
+  padding: 10px 22px;
+  margin: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background 0.3s;
+}
+
+.modal-content button:hover {
+  background: #00337a;
+}
+
+.close {
+  float: right;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #888;
+}
+
+.close:hover {
+  color: #000;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popUp {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+/* =======================
+   AUTH PAGES (Login & Register)
+======================= */
+.auth-container {
+  background: #fff;
+  width: 350px;
+  margin: 100px auto;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.auth-container h2 {
+  color: #004aad;
+  margin-bottom: 20px;
+}
+
+.auth-container input,
+.auth-container select {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.auth-container input:focus,
+.auth-container select:focus {
+  border-color: #004aad;
+}
+
+.auth-container button {
+  width: 95%;
+  padding: 10px;
+  background: #004aad;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+
+.auth-container button:hover {
+  background: #00337a;
+  transform: scale(1.03);
+}
+
+.auth-container a {
+  color: #004aad;
+  text-decoration: none;
+}
+
+.auth-container a:hover {
+  text-decoration: underline;
+}
+
+#message {
+  margin-top: 10px;
+  font-weight: 500;
+}
+
+/* =======================
+   DASHBOARD (Seller & Customer)
+======================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f4f4f5;
+  color: rgb(7, 7, 7);
+  padding: 12px 25px;
+}
+
+.navbar h2 {
+  margin: 0;
+}
+
+.navbar button {
+  background: white;
+  color: #004aad;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.navbar button:hover {
+  background: #00337a;
+  color: white;
+}
+
+.dashboard {
+  max-width: 800px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard h3 {
+  color: #004aad;
+}
+
+.dashboard input,
+.dashboard textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.dashboard button {
+  background: #004aad;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+
+.dashboard button:hover {
+  background: #00337a;
+}
+
+/* =======================
+   PRODUCTS & CART
+======================= */
+.product-card {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 12px;
+  margin: 10px 0;
+}
+
+.product-card h4 {
+  margin: 5px 0;
+  color: #222;
+}
+
+.product-card p {
+  color: #555;
+}
+
+.product-card button {
+  background: #004aad;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  margin-right: 6px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.product-card button:hover {
+  background: #00337a;
+}
+
+#cartItems div {
+  background: #f7f7f7;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 6px;
+}
+
+#cartTotal {
+  font-weight: bold;
+  color: #004aad;
+}
+
+
+
+
+
+
