@@ -1,7 +1,7 @@
-const API_BASE = "https://myshop-msmy.onrender.com/api";
+const API_BASE = "https://myshop-msmy.onrender.com/api"; // Render API URL
 console.log("Script Loaded");
 
-/* ================= LOGIN / LOGOUT ================= */
+/* ================= LOGOUT ================= */
 const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) logoutBtn.onclick = () => {
   localStorage.clear();
@@ -79,5 +79,36 @@ if (document.getElementById("addProductBtn")) {
       .join("");
   }
 
-  loadSellerProducts(); // Initial load
+  loadSellerProducts(); // initial load
+}
+
+/* ================= CUSTOMER DASHBOARD ================= */
+if (document.getElementById("customerName")) {
+  const user = JSON.parse(localStorage.getItem("user"));
+  document.getElementById("customerName").textContent = user.name;
+
+  async function loadAllProducts() {
+    try {
+      const res = await fetch(`${API_BASE}/products`);
+      const products = await res.json();
+      const list = document.getElementById("allProducts");
+
+      list.innerHTML = products
+        .map(
+          (p) => `
+        <div class="product-card">
+          <img src="${p.image}" alt="${p.name}" />
+          <h4>${p.name}</h4>
+          <p>${p.description}</p>
+          <p class="price">₹${p.price}</p>
+        </div>
+      `
+        )
+        .join("");
+    } catch (err) {
+      console.error("Failed to load products:", err);
+    }
+  }
+
+  loadAllProducts(); // initial load
 }
