@@ -1,5 +1,6 @@
 {
   "watch": ["server.js", "routes", "controllers", "models", "config"],
   "ext": "js,json",
+  "ignore": ["node_modules"],
   "exec": "node --experimental-specifier-resolution=node server.js"
 }

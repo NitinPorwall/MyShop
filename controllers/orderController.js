@@ -1,9 +1,19 @@
 import Order from "../models/Order.js";
+import mongoose from "mongoose";
 
-// ✅ Create new order (checkout)
+// ================== CREATE NEW ORDER ==================
 export const createOrder = async (req, res) => {
   try {
     const { customerId, customerName, items, totalAmount } = req.body;
+
+    // Validation
+    if (!customerId || !customerName || !items || !totalAmount) {
+      return res.status(400).json({ message: "All order fields are required" });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(customerId)) {
+      return res.status(400).json({ message: "Invalid customer ID" });
+    }
 
     const newOrder = new Order({
       customerId,
@@ -15,17 +25,24 @@ export const createOrder = async (req, res) => {
     await newOrder.save();
     res.status(201).json({ message: "Order placed successfully", order: newOrder });
   } catch (error) {
+    console.error("Create Order error:", error);
     res.status(500).json({ message: "Error placing order" });
   }
 };
 
-// ✅ Get all orders (for a customer)
+// ================== GET ORDERS BY CUSTOMER ==================
 export const getOrdersByCustomer = async (req, res) => {
   try {
     const { id } = req.params;
-    const orders = await Order.find({ customerId: id });
+
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid customer ID" });
+    }
+
+    const orders = await Order.find({ customerId: id }).sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
+    console.error("Get Orders error:", error);
     res.status(500).json({ message: "Error fetching orders" });
   }
 };

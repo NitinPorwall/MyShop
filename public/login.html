@@ -17,7 +17,38 @@
     <p>New user? <a href="register.html">Register here</a></p>
   </div>
 
-  <script src="script.js"></script>
+  <script type="module">
+    const API_BASE = "https://myshop-msmy.onrender.com/api";
+
+    const loginBtn = document.getElementById("loginBtn");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const message = document.getElementById("message");
+
+    loginBtn.onclick = async () => {
+      const email = emailInput.value;
+      const password = passwordInput.value;
+
+      if (!email || !password) return message.textContent = "Fill all fields!";
+
+      try {
+        const res = await fetch(`${API_BASE}/auth/login`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok) return message.textContent = data.message;
+
+        localStorage.setItem("user", JSON.stringify(data.user));
+        window.location.href = data.user.role === "seller" ? "seller.html" : "customer.html";
+      } catch (err) {
+        message.textContent = "Login failed!";
+        console.error(err);
+      }
+    };
+  </script>
 </body>
 </html>
-
