@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Seller Dashboard | MyShop</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seller Dashboard</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+  <!-- Navbar -->
   <div class="navbar">
-    <h2>🛍️ MyShop Seller Panel</h2>
+    <h2>Seller Dashboard</h2>
     <button id="logoutBtn">Logout</button>
   </div>
 
+  <!-- Dashboard Container -->
   <div class="dashboard">
-    <h3>Welcome, <span id="sellerName"></span>!</h3>
+    <h3 id="sellerName">Seller Name</h3>
 
-    <h4>Add New Product</h4>
+    <!-- Add Product Form -->
     <input type="text" id="productName" placeholder="Product Name" />
     <textarea id="productDescription" placeholder="Product Description"></textarea>
-    <input type="number" id="productPrice" placeholder="Price (₹)" />
+    <input type="number" id="productPrice" placeholder="Price" />
+    <input type="file" id="productImage" accept="image/*" />
+
     <button id="addProductBtn">Add Product</button>
-    <p id="productMsg"></p>
 
-    <hr />
-
-    <h4>Your Products</h4>
-    <div id="productList"></div>
+    <!-- Products List -->
+    <div id="productList" style="margin-top:20px;"></div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js" type="module"></script>
 </body>
 </html>

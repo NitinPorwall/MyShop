@@ -1,4 +1,99 @@
-/* ===== PRODUCT GRID ===== */
+/* ======================= 
+   GLOBAL
+======================= */
+* {
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background: #f3f6fb;
+  margin: 0;
+  padding: 0;
+}
+
+/* =======================
+   NAVBAR
+======================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f4f4f5;
+  color: rgb(7, 7, 7);
+  padding: 12px 25px;
+}
+
+.navbar h2 {
+  margin: 0;
+}
+
+.navbar button {
+  background: white;
+  color: #004aad;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+}
+
+.navbar button:hover {
+  background: #00337a;
+  color: white;
+}
+
+/* =======================
+   DASHBOARD CONTAINER
+======================= */
+.dashboard {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* =======================
+   INPUTS & BUTTONS
+======================= */
+.dashboard input,
+.dashboard textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.dashboard input:focus,
+.dashboard textarea:focus {
+  border-color: #004aad;
+}
+
+.dashboard button {
+  background: #004aad;
+  color: white;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+
+.dashboard button:hover {
+  background: #00337a;
+  transform: scale(1.03);
+}
+
+/* =======================
+   PRODUCT GRID (CUSTOMER & SELLER)
+======================= */
 #productList,
 #allProducts {
   display: grid;
@@ -7,28 +102,28 @@
   margin-top: 20px;
 }
 
-/* ===== PRODUCT CARD ===== */
+/* =======================
+   PRODUCT CARD
+======================= */
 .product-card {
   background: white;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-  transition: 0.3s ease;
   padding-bottom: 10px;
+  transition: transform 0.3s ease;
 }
 
 .product-card:hover {
   transform: translateY(-5px);
 }
 
-/* IMAGE */
 .product-card img {
   width: 100%;
   height: 180px;
   object-fit: cover;
 }
 
-/* TEXT */
 .product-card h4 {
   margin: 10px;
   font-size: 16px;
@@ -44,4 +139,71 @@
   font-weight: bold;
   color: #004aad;
   font-size: 16px;
+}
+
+/* =======================
+   AUTH PAGES (LOGIN/REGISTER)
+======================= */
+.auth-container {
+  background: #fff;
+  width: 350px;
+  margin: 100px auto;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  animation: fadeIn 0.5s ease;
+}
+
+.auth-container h2 {
+  color: #004aad;
+  margin-bottom: 20px;
+}
+
+.auth-container input,
+.auth-container select {
+  width: 90%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.3s;
+}
+
+.auth-container input:focus,
+.auth-container select:focus {
+  border-color: #004aad;
+}
+
+.auth-container button {
+  width: 95%;
+  padding: 10px;
+  background: #004aad;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1em;
+  margin-top: 10px;
+  transition: all 0.3s;
+}
+
+.auth-container button:hover {
+  background: #00337a;
+  transform: scale(1.03);
+}
+
+.auth-container a {
+  color: #004aad;
+  text-decoration: none;
+}
+
+.auth-container a:hover {
+  text-decoration: underline;
+}
+
+#message {
+  margin-top: 10px;
+  font-weight: 500;
 }
