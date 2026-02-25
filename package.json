@@ -5,9 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-  "start": "node server.js",
-  "dev": "nodemon server.js"
- },
+    "start": "node server.js",
+    "dev": "nodemon"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
