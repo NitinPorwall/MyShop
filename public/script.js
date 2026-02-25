@@ -1,4 +1,6 @@
-const API_BASE = "http://localhost:5000/api";
+const API_BASE = "https://myshop-msmy.onrender.com/api";
+
+console.log("Script Loaded");
 
 // ===== AUTH: LOGIN =====
 const loginBtn = document.getElementById("loginBtn");
