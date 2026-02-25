@@ -1,6 +1,18 @@
-const express = require("express");
+// routes/productRoutes.js
+import express from "express";
+import Product from "../models/Product.js";
+
 const router = express.Router();
-const Product = require("../models/Product");
+
+// GET all products
+router.get("/", async (req, res) => {
+  try {
+    const products = await Product.find();
+    res.json(products);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 
 // Create new product
 router.post("/", async (req, res) => {
@@ -27,4 +39,4 @@ router.post("/", async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
