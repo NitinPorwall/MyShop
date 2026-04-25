@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seller Dashboard | MyShop</title>
+  <meta name="description" content="Manage your products and orders on MyShop">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png">
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Loading Overlay -->
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <a href="index.html" class="sidebar-logo">
+        <i class="fas fa-shopping-bag"></i>
+        <span>MyShop</span>
+      </a>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-link active" data-section="dashboard">
+        <i class="fas fa-tachometer-alt"></i>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-link" data-section="products">
+        <i class="fas fa-box"></i>
+        <span>Products</span>
+      </a>
+      <a href="#" class="nav-link" data-section="orders">
+        <i class="fas fa-shopping-cart"></i>
+        <span>Orders</span>
+      </a>
+    </nav>
+    
+    <div class="sidebar-footer">
+      <a href="index.html" class="nav-link">
+        <i class="fas fa-home"></i>
+        <span>Back to Store</span>
+      </a>
+      <button class="nav-link" id="logoutBtn">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <header class="top-bar">
+      <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+      </button>
+      
+      <div class="top-bar-title">
+        <h2 id="pageTitle">Dashboard</h2>
+      </div>
+      
+      <div class="top-bar-actions">
+        <div class="user-info" id="userInfo">
+          <div class="user-avatar">
+            <i class="fas fa-user"></i>
+          </div>
+          <span class="user-name" id="sellerName">Seller</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section class="content-section" id="dashboardSection">
+      <!-- Stats Cards -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon products">
+            <i class="fas fa-box"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Total Products</span>
+            <span class="stat-value" id="totalProducts">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orders">
+            <i class="fas fa-shopping-cart"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Total Orders</span>
+            <span class="stat-value" id="totalOrders">0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon revenue">
+            <i class="fas fa-rupee-sign"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Total Revenue</span>
+            <span class="stat-value" id="totalRevenue">₹0</span>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon pending">
+            <i class="fas fa-clock"></i>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Pending Orders</span>
+            <span class="stat-value" id="pendingOrders">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Orders -->
+      <div class="recent-orders">
+        <div class="section-header">
+          <h3>Recent Orders</h3>
+          <button class="btn btn-outline" id="viewAllOrdersBtn">View All</button>
+        </div>
+        <div class="orders-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody id="recentOrdersTable">
+              <tr>
+                <td colspan="6" class="text-center">Loading orders...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="content-section hidden" id="productsSection">
+      <!-- Add Product Form -->
+      <div class="add-product-card">
+        <h3><i class="fas fa-plus-circle"></i> Add New Product</h3>
+        <form id="addProductForm">
+          <div class="form-row">
+            <div class="form-group">
+              <label>Product Name *</label>
+              <input type="text" id="productName" placeholder="Enter product name" required>
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="productCategory">
+                <option value="electronics">Electronics</option>
+                <option value="fashion">Fashion</option>
+                <option value="home">Home & Living</option>
+                <option value="beauty">Beauty</option>
+                <option value="sports">Sports</option>
+                <option value="books">Books</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Description *</label>
+            <textarea id="productDescription" rows="3" placeholder="Enter product description" required></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price (₹) *</label>
+              <input type="number" id="productPrice" placeholder="0.00" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label>Stock Quantity *</label>
+              <input type="number" id="productStock" placeholder="0" min="0" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Discount (%)</label>
+              <input type="number" id="productDiscount" placeholder="0" min="0" max="100" value="0">
+            </div>
+            <div class="form-group">
+              <label>Image URL</label>
+              <input type="url" id="productImage" placeholder="https://example.com/image.jpg">
+            </div>
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Add Product
+            </button>
+            <button type="reset" class="btn btn-outline">
+              <i class="fas fa-redo"></i> Reset
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Products List -->
+      <div class="products-list">
+        <div class="section-header">
+          <h3><i class="fas fa-box"></i> Your Products</h3>
+          <div class="products-filter">
+            <input type="text" id="productSearch" placeholder="Search products...">
+            <select id="productSort">
+              <option value="newest">Newest First</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="products-grid" id="productsGrid">
+          <div class="loading-placeholder">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading products...</p>
+          </div>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination" id="productsPagination"></div>
+      </div>
+    </section>
+
+    <!-- Orders Section -->
+    <section class="content-section hidden" id="ordersSection">
+      <div class="orders-management">
+        <div class="section-header">
+          <h3><i class="fas fa-shopping-cart"></i> All Orders</h3>
+          <div class="orders-filter">
+            <select id="orderStatusFilter">
+              <option value="all">All Status</option>
+              <option value="pending">Pending</option>
+              <option value="confirmed">Confirmed</option>
+              <option value="processing">Processing</option>
+              <option value="shipped">Shipped</option>
+              <option value="delivered">Delivered</option>
+              <option value="cancelled">Cancelled</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="orders-table-wrapper">
+          <table class="orders-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Items</th>
+                <th>Amount</th>
+                <th>Payment</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="allOrdersTable">
+              <tr>
+                <td colspan="7" class="text-center">Loading orders...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="pagination" id="ordersPagination"></div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Edit Product Modal -->
+  <div class="modal" id="editProductModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Edit Product</h3>
+        <button class="modal-close" id="closeEditModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form id="editProductForm">
+          <input type="hidden" id="editProductId">
+          
+          <div class="form-group">
+            <label>Product Name *</label>
+            <input type="text" id="editProductName" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Description *</label>
+            <textarea id="editProductDescription" rows="3" required></textarea>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Price (₹) *</label>
+              <input type="number" id="editProductPrice" min="0" step="0.01" required>
+            </div>
+            <div class="form-group">
+              <label>Stock *</label>
+              <input type="number" id="editProductStock" min="0" required>
+            </div>
+          </div>
+          
+          <div class="form-row">
+            <div class="form-group">
+              <label>Discount (%)</label>
+              <input type="number" id="editProductDiscount" min="0" max="100">
+            </div>
+            <div class="form-group">
+              <label>Category</label>
+              <select id="editProductCategory">
+                <option value="electronics">Electronics</option>
+                <option value="fashion">Fashion</option>
+                <option value="home">Home & Living</option>
+                <option value="beauty">Beauty</option>
+                <option value="sports">Sports</option>
+                <option value="books">Books</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Image URL</label>
+            <input type="url" id="editProductImage">
+          </div>
+          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <button type="button" class="btn btn-outline" id="cancelEditBtn">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order Detail Modal -->
+  <div class="modal" id="orderDetailModal">
+    <div class="modal-content modal-large">
+      <div class="modal-header">
+        <h3>Order Details</h3>
+        <button class="modal-close" id="closeOrderModal">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="modal-body" id="orderDetailContent">
+        <!-- Order details will be loaded dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" id="modalOverlay"></div>
+
+  <script type="module">
+    // ================== CONFIGURATION ==================
+    const API_BASE = "https://myshop-msmy.onrender.com/api";
+    
+    // ================== STATE ==================
+    let currentUser = null;
+    let currentSection = 'dashboard';
+    let products = [];
+    let orders = [];
+    let filteredProducts = [];
+    let currentProductPage = 1;
+    let currentOrderPage = 1;
+    const productsPerPage = 9;
+    const ordersPerPage = 10;
+    
+    // ================== DOM ELEMENTS ==================
+    const loadingOverlay = document.getElementById("loadingOverlay");
+    const toastContainer = document.getElementById("toastContainer");
+    const sidebar = document.getElementById("sidebar");
+    const menuToggle = document.getElementById("menuToggle");
+    const modalOverlay = document.getElementById("modalOverlay");
+    
+    // ================== AUTH CHECK ==================
+    function checkAuth() {
+      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user") || sessionStorage.getItem("user"));
+      
+      if (!token || !user) {
+        window.location.href = "login.html";
+        return null;
+      }
+      
+      if (user.role !== 'seller' && user.role !== 'admin') {
+        window.location.href = "customer.html";
+        return null;
+      }
+      
+      return { token, user };
+    }
+    
+    // ================== INITIALIZATION ==================
+    async function init() {
+      const auth = checkAuth();
+      if (!auth) return;
+      
+      currentUser = auth.user;
+      
+      // Set user info
+      document.getElementById("sellerName").textContent = currentUser.name || 'Seller';
+      
+      // Setup event listeners
+      setupEventListeners();
+      
+      // Load initial data
+      await Promise.all([
+        loadDashboardStats(),
+        loadRecentOrders(),
+        loadProducts()
+      ]);
+      
+      // Hide loading
+      hideLoading();
+    }
+    
+    // ================== EVENT LISTENERS ==================
+    function setupEventListeners() {
+      // Mobile menu toggle
+      menuToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+      });
+      
+      // Close sidebar on overlay click (mobile)
+      modalOverlay.addEventListener('click', () => {
+        sidebar.classList.remove('active');
+        closeAllModals();
+      });
+      
+      // Navigation links
+      document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          const section = link.dataset.section;
+          navigateToSection(section);
+        });
+      });
+      
+      // Logout button
+      document.getElementById('logoutBtn').addEventListener('click', logout);
+      
+      // View all orders button
+      document.getElementById('viewAllOrdersBtn').addEventListener('click', () => {
+        navigateToSection('orders');
+      });
+      
+      // Add product form
+      document.getElementById('addProductForm').addEventListener('submit', handleAddProduct);
+      
+      // Product search and sort
+      document.getElementById('productSearch').addEventListener('input', debounce(filterProducts, 300));
+      document.getElementById('productSort').addEventListener('change', filterProducts);
+      
+      // Order status filter
+      document.getElementById('orderStatusFilter').addEventListener('change', loadAllOrders);
+      
+      // Edit product form
+      document.getElementById('editProductForm').addEventListener('submit', handleEditProduct);
+      document.getElementById('cancelEditBtn').addEventListener('click', closeEditModal);
+      document.getElementById('closeEditModal').addEventListener('click', closeEditModal);
+      
+      // Order detail modal
+      document.getElementById('closeOrderModal').addEventListener('click', closeOrderModal);
+    }
+    
+    // ================== NAVIGATION ==================
+    function navigateToSection(section) {
+      currentSection = section;
+      
+            // Update nav active state
+      document.querySelectorAll('.nav-link[data-section]').forEach(link => {
+        link.classList.remove('active');
+        if (link.dataset.section === section) {
+          link.classList.add('active');
+        }
+      });
+
+      // Update page title
+      const titles = {
+        dashboard: "Dashboard",
+        products: "Products",
+        orders: "Orders"
+      };
+      document.getElementById("pageTitle").textContent = titles[section];
+
+      // Hide all sections
+      document.querySelectorAll('.content-section').forEach(sec => {
+        sec.classList.add('hidden');
+      });
+
+      // Show selected section
+      document.getElementById(section + "Section").classList.remove('hidden');
+
+      // Load section specific data
+      if (section === 'orders') loadAllOrders();
+      if (section === 'products') renderProducts();
+    }
+
+    // ================== LOADING ==================
+    function showLoading() {
+      loadingOverlay.style.display = "flex";
+    }
+
+    function hideLoading() {
+      loadingOverlay.style.display = "none";
+    }
+
+    // ================== TOAST ==================
+    function showToast(message, type = "success") {
+      const toast = document.createElement("div");
+      toast.className = `toast ${type}`;
+      toast.innerText = message;
+      toastContainer.appendChild(toast);
+
+      setTimeout(() => {
+        toast.remove();
+      }, 3000);
+    }
+
+    // ================== API CALL HELPER ==================
+    async function apiCall(endpoint, options = {}) {
+      const token = localStorage.getItem("token") || sessionStorage.getItem("token");
+
+      const response = await fetch(`${API_BASE}${endpoint}`, {
+        ...options,
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`,
+          ...options.headers
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error("API Error");
+      }
+
+      return response.json();
+    }
+
+    // ================== DASHBOARD ==================
+    async function loadDashboardStats() {
+      try {
+        const data = await apiCall("/seller/dashboard");
+        document.getElementById("totalProducts").textContent = data.totalProducts || 0;
+        document.getElementById("totalOrders").textContent = data.totalOrders || 0;
+        document.getElementById("totalRevenue").textContent = `₹${data.totalRevenue || 0}`;
+        document.getElementById("pendingOrders").textContent = data.pendingOrders || 0;
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    async function loadRecentOrders() {
+      try {
+        const data = await apiCall("/seller/orders?limit=5");
+        const tbody = document.getElementById("recentOrdersTable");
+        tbody.innerHTML = "";
+
+        if (!data.length) {
+          tbody.innerHTML = `<tr><td colspan="6" class="text-center">No orders yet</td></tr>`;
+          return;
+        }
+
+        data.forEach(order => {
+          tbody.innerHTML += `
+            <tr>
+              <td>${order._id}</td>
+              <td>${order.customer?.name || "Customer"}</td>
+              <td>${order.items.length}</td>
+              <td>₹${order.totalAmount}</td>
+              <td>${order.status}</td>
+              <td>${new Date(order.createdAt).toLocaleDateString()}</td>
+            </tr>
+          `;
+        });
+
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    // ================== PRODUCTS ==================
+    async function loadProducts() {
+      try {
+        products = await apiCall("/seller/products");
+        filteredProducts = [...products];
+        renderProducts();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderProducts() {
+      const grid = document.getElementById("productsGrid");
+      grid.innerHTML = "";
+
+      if (!filteredProducts.length) {
+        grid.innerHTML = "<p>No products found.</p>";
+        return;
+      }
+
+      filteredProducts.forEach(product => {
+        grid.innerHTML += `
+          <div class="product-card">
+            <img src="${product.image || 'https://via.placeholder.com/150'}" alt="">
+            <h4>${product.name}</h4>
+            <p>₹${product.price}</p>
+            <div class="product-actions">
+              <button onclick="openEditModal('${product._id}')">Edit</button>
+              <button onclick="deleteProduct('${product._id}')">Delete</button>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    function filterProducts() {
+      const search = document.getElementById("productSearch").value.toLowerCase();
+      filteredProducts = products.filter(p => 
+        p.name.toLowerCase().includes(search)
+      );
+      renderProducts();
+    }
+
+    async function handleAddProduct(e) {
+      e.preventDefault();
+
+      const newProduct = {
+        name: productName.value,
+        description: productDescription.value,
+        price: productPrice.value,
+        stock: productStock.value,
+        discount: productDiscount.value,
+        category: productCategory.value,
+        image: productImage.value
+      };
+
+      try {
+        await apiCall("/seller/products", {
+          method: "POST",
+          body: JSON.stringify(newProduct)
+        });
+
+        showToast("Product added successfully!");
+        e.target.reset();
+        loadProducts();
+        loadDashboardStats();
+      } catch (err) {
+        showToast("Failed to add product", "error");
+      }
+    }
+
+    async function deleteProduct(id) {
+      if (!confirm("Delete this product?")) return;
+
+      try {
+        await apiCall(`/seller/products/${id}`, { method: "DELETE" });
+        showToast("Product deleted!");
+        loadProducts();
+        loadDashboardStats();
+      } catch {
+        showToast("Delete failed", "error");
+      }
+    }
+
+    window.openEditModal = function(id) {
+      const product = products.find(p => p._id === id);
+      if (!product) return;
+
+      editProductId.value = product._id;
+      editProductName.value = product.name;
+      editProductDescription.value = product.description;
+      editProductPrice.value = product.price;
+      editProductStock.value = product.stock;
+      editProductDiscount.value = product.discount || 0;
+      editProductCategory.value = product.category;
+      editProductImage.value = product.image || "";
+
+      document.getElementById("editProductModal").classList.add("active");
+      modalOverlay.classList.add("active");
+    };
+
+    function closeEditModal() {
+      document.getElementById("editProductModal").classList.remove("active");
+      modalOverlay.classList.remove("active");
+    }
+
+    async function handleEditProduct(e) {
+      e.preventDefault();
+
+      const id = editProductId.value;
+
+      const updatedProduct = {
+        name: editProductName.value,
+        description: editProductDescription.value,
+        price: editProductPrice.value,
+        stock: editProductStock.value,
+        discount: editProductDiscount.value,
+        category: editProductCategory.value,
+        image: editProductImage.value
+      };
+
+      try {
+        await apiCall(`/seller/products/${id}`, {
+          method: "PUT",
+          body: JSON.stringify(updatedProduct)
+        });
+
+        showToast("Product updated!");
+        closeEditModal();
+        loadProducts();
+      } catch {
+        showToast("Update failed", "error");
+      }
+    }
+
+    // ================== ORDERS ==================
+    async function loadAllOrders() {
+      try {
+        const status = document.getElementById("orderStatusFilter").value;
+        let endpoint = "/seller/orders";
+        if (status !== "all") endpoint += `?status=${status}`;
+
+        orders = await apiCall(endpoint);
+        renderOrders();
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    function renderOrders() {
+      const tbody = document.getElementById("allOrdersTable");
+      tbody.innerHTML = "";
+
+      if (!orders.length) {
+        tbody.innerHTML = `<tr><td colspan="7">No orders found</td></tr>`;
+        return;
+      }
+
+      orders.forEach(order => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${order._id}</td>
+            <td>${order.customer?.name || "Customer"}</td>
+            <td>${order.items.length}</td>
+            <td>₹${order.totalAmount}</td>
+            <td>${order.paymentMethod}</td>
+            <td>${order.status}</td>
+            <td>
+              <button onclick="viewOrder('${order._id}')">View</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    window.viewOrder = function(id) {
+      const order = orders.find(o => o._id === id);
+      if (!order) return;
+
+      document.getElementById("orderDetailContent").innerHTML = `
+        <p><strong>Order ID:</strong> ${order._id}</p>
+        <p><strong>Customer:</strong> ${order.customer?.name}</p>
+        <p><strong>Total:</strong> ₹${order.totalAmount}</p>
+        <p><strong>Status:</strong> ${order.status}</p>
+      `;
+
+      document.getElementById("orderDetailModal").classList.add("active");
+      modalOverlay.classList.add("active");
+    };
+
+    function closeOrderModal() {
+      document.getElementById("orderDetailModal").classList.remove("active");
+      modalOverlay.classList.remove("active");
+    }
+
+    function closeAllModals() {
+      closeEditModal();
+      closeOrderModal();
+    }
+
+    // ================== LOGOUT ==================
+    function logout() {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      sessionStorage.clear();
+      window.location.href = "login.html";
+    }
+
+    // ================== UTIL ==================
+    function debounce(func, delay) {
+      let timeout;
+      return function (...args) {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(this, args), delay);
+      };
+    }
+
+    // ================== START ==================
+    init();
+
+  </script>
+</body>
+</html>
