@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MyShop — Seller Dashboard</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <a href="/" class="logo display">MyShop</a>
+    <nav>
+      <a href="/" class="mono">Catalogue</a>
+      <a href="/seller-dashboard.html" class="mono seller-only">Sell</a>
+      <a href="/cart.html" class="mono">Cart<span class="badge" id="cart-count">0</span></a>
+      <span class="guest-only"><a href="/login.html" class="mono">Login</a></span>
+      <span class="auth-only mono">
+        <span id="user-name"></span>
+        <button id="logout-btn">Logout</button>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<div class="dashboard">
+  <h1 class="display">Seller dashboard</h1>
+  <p class="mono" style="color:var(--ink-soft); font-size:0.8rem; margin-bottom: 24px;">
+    MANAGE YOUR OWN PRODUCT CATALOGUE
+  </p>
+
+  <div class="dashboard-grid">
+    <div class="form-card">
+      <h2 class="display" id="form-title" style="font-size:1.2rem;">Add a product</h2>
+      <form id="product-form">
+        <input type="hidden" id="product-id" />
+        <div class="field">
+          <label for="p-name">Name</label>
+          <input type="text" id="p-name" required />
+        </div>
+        <div class="field">
+          <label for="p-description">Description</label>
+          <textarea id="p-description"></textarea>
+        </div>
+        <div class="field">
+          <label for="p-category">Category</label>
+          <select id="p-category" required>
+            <option>Electronics</option>
+            <option>Fashion</option>
+            <option>Home & Kitchen</option>
+            <option>Beauty & Personal Care</option>
+            <option>Books</option>
+            <option>Sports & Fitness</option>
+            <option>Toys & Games</option>
+            <option>Groceries</option>
+            <option value="__custom__">Other (type below)</option>
+          </select>
+        </div>
+        <div class="field" id="custom-category-field" style="display:none">
+          <label for="p-category-custom">Custom category name</label>
+          <input type="text" id="p-category-custom" placeholder="e.g. Pet Supplies" />
+        </div>
+        <div class="field">
+          <label for="p-price">Price (₹)</label>
+          <input type="number" id="p-price" min="0" required />
+        </div>
+        <div class="field">
+          <label for="p-stock">Stock</label>
+          <input type="number" id="p-stock" min="0" required />
+        </div>
+        <div class="field">
+          <label for="p-color">Accent colour</label>
+          <input type="color" id="p-color" value="#4b5842" />
+        </div>
+        <button type="submit" id="submit-btn" class="btn btn-primary btn-block">Add product</button>
+        <button type="button" id="cancel-edit" class="btn btn-outline btn-block" style="margin-top:8px; display:none;">Cancel edit</button>
+        <p id="form-error" class="error-msg" style="display:none"></p>
+        <p id="form-success" class="success-msg" style="display:none"></p>
+      </form>
+    </div>
+
+    <div>
+      <h2 class="display" style="font-size:1.2rem; margin-bottom:12px;">Your products</h2>
+      <table>
+        <thead>
+          <tr><th>Name</th><th>Category</th><th>Price</th><th>Stock</th><th></th></tr>
+        </thead>
+        <tbody id="product-table-body"></tbody>
+      </table>
+      <div id="products-empty" class="empty" style="display:none">
+        <h2>No products yet.</h2>
+        <p>ADD YOUR FIRST PRODUCT USING THE FORM</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="site-footer">MyShop — a full-stack e-commerce demo</footer>
+
+<script src="/js/api.js"></script>
+<script src="/js/seller.js"></script>
+</body>
+</html>

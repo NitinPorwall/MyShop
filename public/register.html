@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MyShop — Register</title>
+<link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="inner">
+    <a href="/" class="logo display">MyShop</a>
+    <nav><a href="/" class="mono">Catalogue</a></nav>
+  </div>
+</header>
+
+<div class="form-page">
+  <div class="form-card">
+    <h1 class="display">Create your account</h1>
+    <p class="subtitle mono">CHOOSE HOW YOU'LL USE MYSHOP</p>
+    <form id="register-form">
+      <div class="field">
+        <label>I am a</label>
+        <div class="role-toggle">
+          <button type="button" class="active" data-role="customer">Customer</button>
+          <button type="button" data-role="seller">Seller</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="name">Full name</label>
+        <input type="text" id="name" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input type="email" id="email" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input type="password" id="password" required minlength="6" />
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Create account</button>
+      <p id="register-error" class="error-msg" style="display:none"></p>
+    </form>
+    <p class="form-footer">Already have an account? <a href="/login.html" style="text-decoration:underline">Log in</a></p>
+  </div>
+</div>
+
+<script src="/js/api.js"></script>
+<script src="/js/auth.js"></script>
+</body>
+</html>
